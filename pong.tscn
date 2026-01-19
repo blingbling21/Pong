@@ -1,0 +1,360 @@
+[gd_scene load_steps=11 format=3 uid="uid://ti02uj564mae"]
+
+[ext_resource type="Script" uid="uid://bgnbhg8lcgnvw" path="res://球拍_左.gd" id="1_8w31r"]
+[ext_resource type="Script" uid="uid://do8ig5v6wu676" path="res://球拍_右.gd" id="2_4opyw"]
+[ext_resource type="Script" uid="uid://dxqg2hdhu0m27" path="res://ball.gd" id="3_pkvn5"]
+[ext_resource type="Script" uid="uid://bhdvrd7b6vsf4" path="res://主控.gd" id="4_m5tya"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_pkvn5"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_m5tya"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pkvn5"]
+size = Vector2(100, 1000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m5tya"]
+size = Vector2(100, 1000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y4u2a"]
+size = Vector2(10, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8w31r"]
+size = Vector2(10, 10)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="墙" type="Node2D" parent="."]
+
+[node name="上墙" type="StaticBody2D" parent="墙"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="墙/上墙"]
+shape = SubResource("WorldBoundaryShape2D_pkvn5")
+
+[node name="下墙" type="StaticBody2D" parent="墙"]
+position = Vector2(0, 648)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="墙/下墙"]
+shape = SubResource("WorldBoundaryShape2D_m5tya")
+
+[node name="得分区域" type="Node2D" parent="."]
+
+[node name="左侧得分区域" type="Area2D" parent="得分区域"]
+position = Vector2(-66, 282)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="得分区域/左侧得分区域"]
+shape = SubResource("RectangleShape2D_pkvn5")
+
+[node name="右侧得分区域" type="Area2D" parent="得分区域"]
+position = Vector2(1216, 322)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="得分区域/右侧得分区域"]
+shape = SubResource("RectangleShape2D_m5tya")
+
+[node name="游戏区域" type="Node2D" parent="."]
+
+[node name="球拍_左" type="CharacterBody2D" parent="游戏区域"]
+position = Vector2(20, 304)
+script = ExtResource("1_8w31r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="游戏区域/球拍_左"]
+shape = SubResource("RectangleShape2D_y4u2a")
+
+[node name="ColorRect" type="ColorRect" parent="游戏区域/球拍_左/CollisionShape2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -50.0
+offset_right = 5.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(5, 50)
+metadata/_edit_use_anchors_ = true
+
+[node name="球拍_右" type="CharacterBody2D" parent="游戏区域"]
+position = Vector2(1132, 300)
+script = ExtResource("2_4opyw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="游戏区域/球拍_右"]
+shape = SubResource("RectangleShape2D_y4u2a")
+
+[node name="ColorRect" type="ColorRect" parent="游戏区域/球拍_右/CollisionShape2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -50.0
+offset_right = 5.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(5, 50)
+metadata/_edit_use_anchors_ = true
+
+[node name="ball" type="CharacterBody2D" parent="游戏区域"]
+position = Vector2(578, 324)
+script = ExtResource("3_pkvn5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="游戏区域/ball"]
+shape = SubResource("RectangleShape2D_8w31r")
+
+[node name="ColorRect" type="ColorRect" parent="游戏区域/ball/CollisionShape2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(5, 5)
+metadata/_edit_use_anchors_ = true
+
+[node name="主控" type="Node2D" parent="."]
+script = ExtResource("4_m5tya")
+win_score = 5
+
+[node name="GUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BoxContainer" type="BoxContainer" parent="GUI"]
+layout_mode = 0
+offset_left = 307.0
+offset_right = 851.0
+offset_bottom = 40.0
+
+[node name="左边得分" type="Label" parent="GUI/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+
+[node name="右边得分" type="Label" parent="GUI/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI"]
+layout_mode = 0
+offset_left = 576.0
+offset_right = 580.0
+offset_bottom = 648.0
+pivot_offset = Vector2(2, 0)
+theme_override_constants/separation = 10
+
+[node name="ColorRect" type="ColorRect" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(4, 20)
+layout_mode = 2
+color = Color(1, 1, 1, 0.50980395)
+
+[node name="ColorRect2" type="ColorRect" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(4, 20)
+layout_mode = 2
+color = Color(1, 1, 1, 0.50980395)
+
+[node name="ColorRect3" type="ColorRect" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(4, 20)
+layout_mode = 2
+color = Color(1, 1, 1, 0.50980395)
+
+[node name="ColorRect4" type="ColorRect" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(4, 20)
+layout_mode = 2
+color = Color(1, 1, 1, 0.50980395)
+
+[node name="ColorRect5" type="ColorRect" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(4, 20)
+layout_mode = 2
+color = Color(1, 1, 1, 0.50980395)
+
+[node name="ColorRect6" type="ColorRect" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(4, 20)
+layout_mode = 2
+color = Color(1, 1, 1, 0.50980395)
+
+[node name="ColorRect7" type="ColorRect" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(4, 20)
+layout_mode = 2
+color = Color(1, 1, 1, 0.50980395)
+
+[node name="ColorRect8" type="ColorRect" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(4, 20)
+layout_mode = 2
+color = Color(1, 1, 1, 0.50980395)
+
+[node name="ColorRect9" type="ColorRect" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(4, 20)
+layout_mode = 2
+color = Color(1, 1, 1, 0.50980395)
+
+[node name="ColorRect10" type="ColorRect" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(4, 20)
+layout_mode = 2
+color = Color(1, 1, 1, 0.50980395)
+
+[node name="ColorRect11" type="ColorRect" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(4, 20)
+layout_mode = 2
+color = Color(1, 1, 1, 0.50980395)
+
+[node name="ColorRect12" type="ColorRect" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(4, 20)
+layout_mode = 2
+color = Color(1, 1, 1, 0.50980395)
+
+[node name="ColorRect13" type="ColorRect" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(4, 20)
+layout_mode = 2
+color = Color(1, 1, 1, 0.50980395)
+
+[node name="ColorRect14" type="ColorRect" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(4, 20)
+layout_mode = 2
+color = Color(1, 1, 1, 0.50980395)
+
+[node name="ColorRect15" type="ColorRect" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(4, 20)
+layout_mode = 2
+color = Color(1, 1, 1, 0.50980395)
+
+[node name="ColorRect16" type="ColorRect" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(4, 20)
+layout_mode = 2
+color = Color(1, 1, 1, 0.50980395)
+
+[node name="ColorRect17" type="ColorRect" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(4, 20)
+layout_mode = 2
+color = Color(1, 1, 1, 0.50980395)
+
+[node name="ColorRect18" type="ColorRect" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(4, 20)
+layout_mode = 2
+color = Color(1, 1, 1, 0.50980395)
+
+[node name="ColorRect19" type="ColorRect" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(4, 20)
+layout_mode = 2
+color = Color(1, 1, 1, 0.50980395)
+
+[node name="ColorRect20" type="ColorRect" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(4, 20)
+layout_mode = 2
+color = Color(1, 1, 1, 0.50980395)
+
+[node name="ColorRect21" type="ColorRect" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(4, 20)
+layout_mode = 2
+color = Color(1, 1, 1, 0.50980395)
+
+[node name="ColorRect22" type="ColorRect" parent="GUI/VBoxContainer"]
+custom_minimum_size = Vector2(4, 20)
+layout_mode = 2
+color = Color(1, 1, 1, 0.50980395)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="开始界面" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1156.0
+offset_bottom = 648.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/开始界面"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 0
+offset_left = 1.0
+offset_right = 1157.0
+offset_bottom = 648.0
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/开始界面/HBoxContainer"]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/开始界面/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "PONG"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="开始游戏" type="Button" parent="CanvasLayer/开始界面/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Start
+"
+
+[node name="结束界面" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1156.0
+offset_bottom = 648.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/结束界面"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 0
+offset_left = 1.0
+offset_right = 1157.0
+offset_bottom = 648.0
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/结束界面/HBoxContainer"]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/结束界面/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "WIN !!!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="重开游戏" type="Button" parent="CanvasLayer/结束界面/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(120, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Restart"
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -87.5
+offset_right = 64.0
+offset_bottom = 87.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(64, 87.5)
+theme_override_font_sizes/font_size = 128
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="body_entered" from="得分区域/左侧得分区域" to="主控" method="_on_左侧得分区域_body_entered"]
+[connection signal="body_entered" from="得分区域/右侧得分区域" to="主控" method="_on_右侧得分区域_body_entered"]
+[connection signal="pressed" from="CanvasLayer/开始界面/HBoxContainer/VBoxContainer/开始游戏" to="主控" method="_on_开始游戏_pressed"]
+[connection signal="pressed" from="CanvasLayer/结束界面/HBoxContainer/VBoxContainer/重开游戏" to="主控" method="_on_重开游戏_pressed"]
