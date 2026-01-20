@@ -32,6 +32,12 @@ ui_down_2={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="墙、网"
+2d_physics/layer_2="拍子"
+2d_physics/layer_3="球"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

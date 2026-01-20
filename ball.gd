@@ -4,6 +4,9 @@ extends CharacterBody2D
 @export var initial_speed = 300.0
 var current_speed = 300.0
 
+# 切向系数，拍子速度 x 切向系数 = 最终加给球的速度
+const vertical_y = 0.5
+
 #func _ready() -> void:
 	#start_new_round()
 	#launch()
@@ -14,6 +17,9 @@ func _physics_process(delta: float) -> void:
 		var collision = move_and_collide(velocity * delta)
 		if collision:
 			velocity = velocity.bounce(collision.get_normal())
+			var collider = collision.get_collider()
+			if collider is CharacterBody2D:
+				velocity.y += collider.velocity.y * vertical_y
 
 # 初始化球
 func start_new_round():

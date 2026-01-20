@@ -41,12 +41,14 @@ shape = SubResource("WorldBoundaryShape2D_m5tya")
 
 [node name="左侧得分区域" type="Area2D" parent="得分区域"]
 position = Vector2(-66, 282)
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="得分区域/左侧得分区域"]
 shape = SubResource("RectangleShape2D_pkvn5")
 
 [node name="右侧得分区域" type="Area2D" parent="得分区域"]
 position = Vector2(1216, 322)
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="得分区域/右侧得分区域"]
 shape = SubResource("RectangleShape2D_m5tya")
@@ -55,6 +57,7 @@ shape = SubResource("RectangleShape2D_m5tya")
 
 [node name="球拍_左" type="CharacterBody2D" parent="游戏区域"]
 position = Vector2(20, 304)
+collision_layer = 2
 script = ExtResource("1_8w31r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="游戏区域/球拍_左"]
@@ -77,6 +80,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="球拍_右" type="CharacterBody2D" parent="游戏区域"]
 position = Vector2(1132, 300)
+collision_layer = 2
 script = ExtResource("2_4opyw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="游戏区域/球拍_右"]
@@ -99,6 +103,8 @@ metadata/_edit_use_anchors_ = true
 
 [node name="ball" type="CharacterBody2D" parent="游戏区域"]
 position = Vector2(578, 324)
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("3_pkvn5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="游戏区域/ball"]
